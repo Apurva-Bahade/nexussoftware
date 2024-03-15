@@ -27,7 +27,7 @@
     - custom css link
   -->
   <link rel="stylesheet" href="./assets/css/style.css">
-
+<script src="javascript.js"></script>
   <!-- 
     - preload images
   -->
@@ -611,9 +611,9 @@ End Users, typically banks or credit unions, often do not know that we are a par
               </p>
 
               <div class="input-wrapper">
-                <input type="text" name="name" placeholder="Your Name" autocomplete="off" class="input-field">
+                <input type="text"  id="name" name="name" placeholder="Your Name" autocomplete="off" class="input-field">
 
-                <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off" class="input-field">
+                <input type="tel"id="phone" name="phone" placeholder="Phone Number" autocomplete="off" class="input-field">
               </div>
 
               <div class="input-wrapper">
@@ -628,15 +628,47 @@ End Users, typically banks or credit unions, often do not know that we are a par
 
               </div>
 
-              <textarea name="message" placeholder="Message" autocomplete="off" class="input-field"></textarea>
+              <textarea name="message" id="message" placeholder="Message" autocomplete="off" class="input-field"></textarea>
 
-              <button type="submit" class="btn btn-secondary">
+              <button type="submit" id="submit" class="btn btn-secondary">
                 <span class="text text-1">submit</span>
 
                 <span class="text text-2" aria-hidden="true">submit</span>
               </button>
 
             </form>
+            <script type="module">
+              import { getDatabase,ref,set,get,child } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+              // Import the functions you need from the SDKs you need
+              import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+              // TODO: Add SDKs for Firebase products that you want to use
+              // https://firebase.google.com/docs/web/setup#available-libraries
+            
+              // Your web app's Firebase configuration
+              const firebaseConfig = {
+                apiKey: "AIzaSyCyOiIQE3H-1-fQt03fXvSZDEG5CTV5--s",
+                authDomain: "nexus2-88894.firebaseapp.com",
+                projectId: "nexus2-88894",
+                storageBucket: "nexus2-88894.appspot.com",
+                messagingSenderId: "840342786695",
+                appId: "1:840342786695:web:d665a0b802c25b05fd1e22"
+              };
+            
+              // Initialize Firebase
+              const app = initializeApp(firebaseConfig);
+              const db=getDatabase(app);
+  document.getElementById("submit").addEventListener('click',function(e){
+   e.preventDefault();
+    set(ref(db,'user/'+ document.getElementById("name").value),
+    {
+        name:document.getElementById("name").value,
+        phone:document.getElementById("phone").value,
+        message:document.getElementById("message").value,
+    });
+    alert("Login Successful");
+  });
+  
+            </script>
 
             <div class="form-right text-center" style="background-image: url('./assets/images/form-pattern.png')">
 
@@ -932,7 +964,16 @@ End Users, typically banks or credit unions, often do not know that we are a par
 
  
 
-</section>
+</section><br><br>
+
+  
+	<!-- <link rel="stylesheet" href= 
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> 
+	<link rel="stylesheet" href="index.css"> 
+</head>  -->
+
+ 
+
 
 <!-- #other -->
 
@@ -984,28 +1025,7 @@ End Users, typically banks or credit unions, often do not know that we are a par
   
 </body>
 
-<script src="
-https://smtpjs.com/v3/smtp.js"></script>
-<script>
-  function sendEmail(){
 
-Email.send({
-    Host : "smtp.gmail.com",//smtp.gmail.com
-    Username : "bahadeapurva15@gmail.com",
-    Password : "96F6848D267C318F6A6B396580B37CC4F90D",
-    To : 'apurvabahade7@gmail.com',    //our mail
-    From : document.getElementById("phone").value,     //document.getElementById("email").value,
-    Subject : "This is the subject",
-    Body : "name:"+document.getElementById("name").value 
-    +"<br>phone:"+document.getElementById("phone").value
-    +"<br>message:"+document.getElementById("message").value,
-
-
-}).then(
-  message => alert("message send succesfully")
-);
-}
-</script>
           
     
 
